@@ -64,7 +64,7 @@ class Drawer:
         self.button_size = 50
         self.widget.setMaximumWidth(self.button_size * 4)
         self.widget.setMinimumWidth(self.button_size)
-        self.object_widget = None
+        self.object_widgets = None
         self.animation = None
         self.is_moving = False
 
