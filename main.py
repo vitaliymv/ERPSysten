@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QVBoxLayout, QHBoxLayout, QPushButton,
 from basewindow import BaseWindow, Drawer
 from dataclasses import dataclass
 import sys
+from settings import SettingsWindow
 
 class BusinessERP(BaseWindow):
     def __init__(self):
@@ -13,7 +14,7 @@ class BusinessERP(BaseWindow):
         self.content_layout = QVBoxLayout()
 
         self.content_layout.addWidget(QLabel("Main block"))
-
+        self.settings_page_window = SettingsWindow()
         self.drawer = Drawer()
         self.init_drawer()
         self.drawer_layout.addWidget(self.drawer.widget)
@@ -45,6 +46,7 @@ class BusinessERP(BaseWindow):
         settings_page_btn = QPushButton("Settings")
         settings_page_btn.setObjectName("drawer_button")
         settings_page_btn_widget = DrawerButton(settings_page_btn, "⚙️ Settings", "⚙️")
+        # settings_page_btn.clicked.connect()
 
         quit_page_btn = QPushButton("Quit")
         quit_page_btn.setObjectName("drawer_button")
