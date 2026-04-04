@@ -99,7 +99,7 @@ class SettingsWindow(BaseWindow):
             self.set_external_db()
 
         self.host_input.setText(self.settings.value("hostaddress", "localhost", str))
-        self.port_input.setText(self.settings.value("portnumber", 5432, int))
+        self.port_input.setText(str(self.settings.value("portnumber", 5432, int)))
         self.user_input.setText(self.settings.value("username", "admin", str))
         self.password_input.setText(self.settings.value("password", "qweqwe", str))
         self.db_name_input.setText(self.settings.value("databasename", "erp", str))

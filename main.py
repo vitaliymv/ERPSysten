@@ -9,6 +9,7 @@ class BusinessERP(BaseWindow):
         super().__init__("Robocode ERP system")
         main_layout = QHBoxLayout()
         main_layout.setContentsMargins(0, 0, 0, 0)
+        self.current_content_widget = None
 
         self.drawer_layout = QVBoxLayout()
         self.content_layout = QVBoxLayout()
@@ -23,6 +24,13 @@ class BusinessERP(BaseWindow):
         main_layout.addLayout(self.content_layout)
 
         self.setLayout(main_layout)
+
+    def show_window(self, widget_window):
+        if self.current_content_widget is not None:
+            self.content_layout.removeWidget(self.current_content_widget)
+            self.current_content_widget.setParent(None)
+        self.content_layout.addWidget(widget_window)
+        self.current_content_widget = widget_window
 
     def init_drawer(self):
         @dataclass
@@ -46,7 +54,7 @@ class BusinessERP(BaseWindow):
         settings_page_btn = QPushButton("Settings")
         settings_page_btn.setObjectName("drawer_button")
         settings_page_btn_widget = DrawerButton(settings_page_btn, "⚙️ Settings", "⚙️")
-        # settings_page_btn.clicked.connect()
+        settings_page_btn.clicked.connect(lambda: self.show_window(self.settings_page_window))
 
         quit_page_btn = QPushButton("Quit")
         quit_page_btn.setObjectName("drawer_button")
