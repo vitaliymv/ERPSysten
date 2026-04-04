@@ -3,6 +3,7 @@ from basewindow import BaseWindow, Drawer
 from dataclasses import dataclass
 import sys
 from settings import SettingsWindow
+from warehouse import WarehouseWindow
 
 class BusinessERP(BaseWindow):
     def __init__(self):
@@ -15,6 +16,7 @@ class BusinessERP(BaseWindow):
         self.content_layout = QVBoxLayout()
 
         self.content_layout.addWidget(QLabel("Main block"))
+        self.warehouse_page_window = WarehouseWindow()
         self.settings_page_window = SettingsWindow()
         self.drawer = Drawer()
         self.init_drawer()
@@ -46,6 +48,7 @@ class BusinessERP(BaseWindow):
         warehouse_page_btn = QPushButton("Warehouse")
         warehouse_page_btn.setObjectName("drawer_button")
         warehouse_page_btn_widget = DrawerButton(warehouse_page_btn, "📦 Warehouse", "📦")
+        warehouse_page_btn.clicked.connect(lambda: self.show_window(self.warehouse_page_window))
 
         jobs_page_btn = QPushButton("Jobs")
         jobs_page_btn.setObjectName("drawer_button")
@@ -59,6 +62,7 @@ class BusinessERP(BaseWindow):
         quit_page_btn = QPushButton("Quit")
         quit_page_btn.setObjectName("drawer_button")
         quit_page_btn_widget = DrawerButton(quit_page_btn, "❌ Quit", "❌")
+        quit_page_btn.clicked.connect(self.close)
 
         self.drawer.init_layout(
             home_page_btn_widget,

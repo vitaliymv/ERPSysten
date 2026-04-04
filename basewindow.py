@@ -50,7 +50,8 @@ class BaseWindow(QWidget):
         cancel_btn.clicked.connect(window.reject)
         button_layout.addWidget(cancel_btn)
 
-        window.setLayout(button_layout)
+        layout.addLayout(button_layout)
+        window.setLayout(layout)
         if window.exec_() == QDialog.Accepted:
             return [i.text() for i in inputs]
         else:
