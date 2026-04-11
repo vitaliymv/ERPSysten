@@ -59,3 +59,23 @@ class WarehouseTable(Database):
         self.cursor.execute("""
             UPDATE warehouse SET item_name = ?, item_price = ?, description = ?, category = ? WHERE id = ?
         """, (item_name, item_price, description, category, item_id))
+
+class JobTable(Database):
+    def __init__(self, db_name: str = "database.db"):
+        super().__init__(db_name)
+        self.table = """
+            CREATE TABLE IF NOT EXISTS job (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                job_name VARCHAR(50) NOT NULL,
+                job_price DOUBLE NOT NULL,
+                description TEXT NOT NULL,
+                est_time INT NOT NULL,
+                category VARCHAR(50) NOT NULL
+        """
+
+    def get_job(self):
+        self.cursor.execute("SELECT * FROM job")
+        return self.cursor.fetchall()
+
+    def remove_job(self, job_id: int):
+        self.cursor.execute("DELETE FROM job WHERE id = ?", (job_id, ))
