@@ -111,7 +111,7 @@ class JobWindow(BaseWindow):
             jt.remove_job(int(selected_id[0]))
         self.show_table()
 
-    def edit_item(self):
+    def edit_job(self):
         job_obj = self.get_table_job_id()
         selected_id = job_obj[0]
         inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=job_obj[1])
