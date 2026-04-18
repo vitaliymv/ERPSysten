@@ -71,6 +71,7 @@ class JobTable(Database):
                 description TEXT NOT NULL,
                 est_time VARCHAR(255) NOT NULL,
                 category VARCHAR(50) NOT NULL
+            )
         """
 
     def get_job(self):
