@@ -69,7 +69,7 @@ class JobTable(Database):
                 job_name VARCHAR(50) NOT NULL,
                 job_price DOUBLE NOT NULL,
                 description TEXT NOT NULL,
-                est_time INT NOT NULL,
+                est_time VARCHAR(255) NOT NULL,
                 category VARCHAR(50) NOT NULL
         """
 
@@ -79,3 +79,15 @@ class JobTable(Database):
 
     def remove_job(self, job_id: int):
         self.cursor.execute("DELETE FROM job WHERE id = ?", (job_id, ))
+
+    def add_job(self, job_name, job_price, description, est_time, category):
+        self.cursor.execute(
+            "INSERT INTO job (job_name, job_price, description, est_time, category) VALUES (?, ?, ?, ?, ?)",
+            (job_name, job_price, description, est_time, category)
+        )
+
+    def update_job(self, job_id, job_name, job_price, description, est_time, category):
+        self.cursor.execute(
+            "UPDATE job SET job_name = ?, job_price = ?, description = ?, est_time = ?, category = ? WHERE id = ?",
+            (job_name, job_price, description, est_time, category, job_id)
+        )
