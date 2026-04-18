@@ -1,7 +1,7 @@
-from PyQt5.QtCore import QSettings, Qt, QPropertyAnimation
+from PyQt5.QtCore import QSettings, Qt, QPropertyAnimation, QDate
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QMessageBox, QDialog, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QPushButton
-
+from PyQt5.QtWidgets import QWidget, QMessageBox, QDialog, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QPushButton, \
+    QCalendarWidget
 
 class BaseWindow(QWidget):
     def __init__(self, header: str) -> None:
@@ -35,9 +35,19 @@ class BaseWindow(QWidget):
         for i, button in enumerate(fields):
             layout.addWidget(QLabel(button))
             if values is not None:
-                edit_input = QLineEdit(values[i])
+                if "date" in button:
+                    edit_input = QCalendarWidget()
+                    edit_input.setGridVisible(True)
+                    edit_input.setSelectedDate(values[i])
+                else:
+                    edit_input = QLineEdit(values[i])
             else:
-                edit_input = QLineEdit()
+                if "date" in button:
+                    edit_input = QCalendarWidget()
+                    edit_input.setGridVisible(True)
+                    edit_input.setSelectedDate(QDate.currentDate())
+                else:
+                    edit_input = QLineEdit()
             inputs.append(edit_input)
             layout.addWidget(edit_input)
 
