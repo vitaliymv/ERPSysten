@@ -6,6 +6,7 @@ class Database:
         self.db_name = db_name
         self.settings = QSettings("Robocode", "RobocodeErpSystem")
         self.is_internal = self.settings.value("internal_db", True, bool)
+        self.is_internal = True
         self.table = None
 
     def __enter__(self):

@@ -35,17 +35,16 @@ class BaseWindow(QWidget):
         for i, button in enumerate(fields):
             layout.addWidget(QLabel(button))
             if values is not None:
-                if "date" in button:
+                if "time" in button:
                     edit_input = QCalendarWidget()
                     edit_input.setGridVisible(True)
                     edit_input.setSelectedDate(values[i])
                 else:
                     edit_input = QLineEdit(values[i])
             else:
-                if "date" in button:
+                if "time" in button:
                     edit_input = QCalendarWidget()
                     edit_input.setGridVisible(True)
-                    edit_input.setSelectedDate(QDate.currentDate())
                 else:
                     edit_input = QLineEdit()
             inputs.append(edit_input)
@@ -63,7 +62,13 @@ class BaseWindow(QWidget):
         layout.addLayout(button_layout)
         window.setLayout(layout)
         if window.exec_() == QDialog.Accepted:
-            return [i.text() for i in inputs]
+            data = []
+            for i in inputs:
+                if isinstance(i, QLineEdit):
+                    data.append(i.text())
+                else:
+                    data.append(i.selectedDate().toString("dd.MM.yy"))
+            return data
         else:
             return False
 

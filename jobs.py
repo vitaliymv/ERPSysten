@@ -72,7 +72,6 @@ class JobWindow(BaseWindow):
         inputs = self.show_edit_window("Add job", "Name", "Price", "Description", "Category", "Estimate time")
         if not inputs:
             return
-
         for i in inputs:
             if not i.strip():
                 self.show_modal("Error", "One of the inputs are empty", 1)
@@ -118,8 +117,11 @@ class JobWindow(BaseWindow):
             return
 
         selected_id = job_obj[0]
-        inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=job_obj[1])
-
+        selected_job = job_obj[1]
+        edit_time = selected_job[-1]
+        edit_time_obj = QDate.fromString(edit_time, "dd.MM.yy")
+        selected_job[-1] = edit_time_obj
+        inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=selected_job)
         if not inputs:
             return
 
