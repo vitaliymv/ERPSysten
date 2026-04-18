@@ -67,7 +67,7 @@ class BaseWindow(QWidget):
                 if isinstance(i, QLineEdit):
                     data.append(i.text())
                 else:
-                    data.append(i.selectedDate().toString("dd.MM.yy"))
+                    data.append(i.selectedDate().toString("dd.MM.yyyy"))
             return data
         else:
             return False

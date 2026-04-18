@@ -119,7 +119,7 @@ class JobWindow(BaseWindow):
         selected_id = job_obj[0]
         selected_job = job_obj[1]
         edit_time = selected_job[-1]
-        edit_time_obj = QDate.fromString(edit_time, "dd.MM.yy")
+        edit_time_obj = QDate.fromString(edit_time, "dd.MM.yyyy")
         selected_job[-1] = edit_time_obj
         inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=selected_job)
         if not inputs:
