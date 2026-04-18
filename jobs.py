@@ -113,12 +113,12 @@ class JobWindow(BaseWindow):
 
     def edit_job(self):
         job_obj = self.get_table_job_id()
-        selected_id = job_obj[0]
-        inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=job_obj[1])
-
-        if selected_id is None:
+        if job_obj is None:
             self.show_modal("Warning", "No job selected", 1)
             return
+
+        selected_id = job_obj[0]
+        inputs = self.show_edit_window("Edit job", "Name", "Price", "Description", "Category", "Estimate time", values=job_obj[1])
 
         if not inputs:
             return

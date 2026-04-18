@@ -112,12 +112,12 @@ class WarehouseWindow(BaseWindow):
 
     def edit_item(self):
         item_obj = self.get_table_item_id()
-        selected_id = item_obj[0]
-        inputs = self.show_edit_window("Edit item", "Name", "Price", "Description", "Category", values=item_obj[1])
-
-        if selected_id is None:
+        if item_obj is None:
             self.show_modal("Warning", "No item selected", 1)
             return
+        selected_id = item_obj[0]
+
+        inputs = self.show_edit_window("Edit item", "Name", "Price", "Description", "Category", values=item_obj[1])
 
         if not inputs:
             return
