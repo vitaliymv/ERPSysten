@@ -93,3 +93,62 @@ class JobTable(Database):
             "UPDATE job SET job_name = ?, job_price = ?, description = ?, est_time = ?, category = ? WHERE id = ?",
             (job_name, job_price, description, est_time, category, job_id)
         )
+
+class OrderTable(Database):
+    def __init__(self, db_name: str = "database.db"):
+        super().__init__(db_name)
+        self.table = """
+            CREATE TABLE IF NOT EXISTS order (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                customer_name VARCHAR(100) NOT NULL,
+                created_at TEXT NOT NULL,
+                status VARCHAR(20) NOT NULL,
+                notes TEXT NOT NULL
+            )
+        """
+
+    def create_sub_tables(self):
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS orders_jobs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id INTEGER NOT NULL,
+                job_id INTEGER NOT NULL,
+                quantity INTEGER NOT NULL DEFAULT 1
+            )
+        """)
+
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS orders_parts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                order_id INTEGER NOT NULL,
+                part_id INTEGER NOT NULL,
+                quantity INTEGER NOT NULL DEFAULT 1
+            )
+        """)
+
+    def create_order(self, customer_name, created_at, status, notes, jobs, parts):
+        self.create_sub_tables()
+        self.cursor.execute(
+            "INSERT INTO order (customer_name, created_at, status, notes) VALUES (?, ?, ?, ?)",
+            (customer_name, created_at, status, notes)
+        )
+
+        order_id = self.cursor.lastrowid
+        for j in jobs:
+            self.cursor.execute(
+                "INSERT INTO orders_jobs (order_id, job_id, quantity) VALUES (?, ?, ?)",
+                (order_id, j["id"], j["quantity"])
+            )
+
+        for p in parts:
+            self.cursor.execute(
+                "INSERT INTO orders_parts (order_id, part_id, quantity) VALUES (?, ?, ?)",
+                (order_id, p["id"], p["quantity"])
+            )
+
+        return order_id
+
+    def get_orders_basic(self):
+        self.create_sub_tables()
+        self.cursor.execute("SELECT * FROM order")
+        return self.cursor.fetchall()
