@@ -5,6 +5,7 @@ import sys
 from settings import SettingsWindow
 from warehouse import WarehouseWindow
 from jobs import JobWindow
+from home import HomePageWindow
 
 class BusinessERP(BaseWindow):
     def __init__(self):
@@ -16,7 +17,7 @@ class BusinessERP(BaseWindow):
         self.drawer_layout = QVBoxLayout()
         self.content_layout = QVBoxLayout()
 
-        self.content_layout.addWidget(QLabel("Main block"))
+        self.home_page_window = HomePageWindow()
         self.job_page_window = JobWindow()
         self.warehouse_page_window = WarehouseWindow()
         self.settings_page_window = SettingsWindow()
@@ -29,6 +30,7 @@ class BusinessERP(BaseWindow):
         main_layout.addLayout(self.content_layout)
 
         self.setLayout(main_layout)
+        self.show_window(self.home_page_window)
 
     def show_window(self, widget_window):
         if self.current_content_widget is not None:
@@ -47,6 +49,7 @@ class BusinessERP(BaseWindow):
         home_page_btn = QPushButton("Home")
         home_page_btn.setObjectName("drawer_button")
         home_page_btn_widget = DrawerButton(home_page_btn, "🏠 Home", "🏠")
+        home_page_btn.clicked.connect(lambda: self.show_window(self.home_page_window))
 
         warehouse_page_btn = QPushButton("Warehouse")
         warehouse_page_btn.setObjectName("drawer_button")
