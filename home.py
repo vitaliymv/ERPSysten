@@ -153,3 +153,40 @@ class HomePageWindow(BaseWindow):
         layout.addLayout(button_layout)
         window.setLayout(layout)
         return window, orders_data
+
+    def add_order(self):
+        window, orders_data = self.show_order_window()
+        result = window.exec_()
+        if not result:
+            return
+        jobs = orders_data["job"]
+        parts = orders_data["item"]
+
+        filtered_jobs = [
+            {
+                "id": job_id,
+                "quantity": int(spinbox.text())
+            }
+            for job_id, spinbox in jobs if int(spinbox) > 0
+        ]
+
+        filtered_parts = [
+            {
+                "id": part_id,
+                "quantity": int(spinbox.text())
+            }
+            for part_id, spinbox in parts if int(spinbox) > 0
+        ]
+
+        now = datetime.now()
+        now_str = now.strftime("%A(%d) %B %Y, %H:%M")
+        with OrderTable() as ot:
+            ot.create_order(
+                self.customer_name_field.text(),
+                now_str,
+                "In progress",
+                self.notes_field.text(),
+                filtered_jobs,
+                filtered_parts
+            )
+            self.show_orders()
