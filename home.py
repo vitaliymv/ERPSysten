@@ -28,6 +28,7 @@ class HomePageWindow(BaseWindow):
 
         header_btn = QPushButton("Add new order")
         header_btn.setObjectName("home_page_header_button")
+        header_btn.clicked.connect(self.add_order)
 
         self.header_layout.addWidget(header_label, alignment=Qt.AlignCenter)
         self.header_layout.addWidget(header_btn)
@@ -167,7 +168,7 @@ class HomePageWindow(BaseWindow):
                 "id": job_id,
                 "quantity": int(spinbox.text())
             }
-            for job_id, spinbox in jobs if int(spinbox) > 0
+            for job_id, spinbox in jobs if int(spinbox.text()) > 0
         ]
 
         filtered_parts = [
@@ -175,7 +176,7 @@ class HomePageWindow(BaseWindow):
                 "id": part_id,
                 "quantity": int(spinbox.text())
             }
-            for part_id, spinbox in parts if int(spinbox) > 0
+            for part_id, spinbox in parts if int(spinbox.text()) > 0
         ]
 
         now = datetime.now()
