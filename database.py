@@ -98,7 +98,7 @@ class OrderTable(Database):
     def __init__(self, db_name: str = "database.db"):
         super().__init__(db_name)
         self.table = """
-            CREATE TABLE IF NOT EXISTS order (
+            CREATE TABLE IF NOT EXISTS orders (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 customer_name VARCHAR(100) NOT NULL,
                 created_at TEXT NOT NULL,
@@ -129,10 +129,9 @@ class OrderTable(Database):
     def create_order(self, customer_name, created_at, status, notes, jobs, parts):
         self.create_sub_tables()
         self.cursor.execute(
-            "INSERT INTO order (customer_name, created_at, status, notes) VALUES (?, ?, ?, ?)",
+            "INSERT INTO orders (customer_name, created_at, status, notes) VALUES (?, ?, ?, ?)",
             (customer_name, created_at, status, notes)
         )
-
         order_id = self.cursor.lastrowid
         for j in jobs:
             self.cursor.execute(
@@ -145,12 +144,12 @@ class OrderTable(Database):
                 "INSERT INTO orders_parts (order_id, part_id, quantity) VALUES (?, ?, ?)",
                 (order_id, p["id"], p["quantity"])
             )
-
+        self.conn.commit()
         return order_id
 
     def get_orders_basic(self):
         self.create_sub_tables()
-        self.cursor.execute("SELECT * FROM order")
+        self.cursor.execute("SELECT * FROM orders")
         return self.cursor.fetchall()
 
     def get_orders(self):
@@ -160,12 +159,10 @@ class OrderTable(Database):
             oj.job_id, oj.quantity AS job_quantity, j.job_name, j.job_price, j.description AS job_description,
             j.est_time, j.category AS job_category, op.part_id AS item_id, w.item_name, w.item_price, 
             w.description AS item_description, w.category AS item_category, op.quantity AS item_quantity 
-            FROM order o 
+            FROM orders o 
             LEFT JOIN orders_jobs oj ON o.id = oj.order_id 
             LEFT JOIN job j ON j.id = oj.job_id 
             LEFT JOIN orders_parts op ON o.id = op.order_id 
             LEFT JOIN warehouse w ON op.part_id = w.id ORDER BY o.id
         """)
         return self.cursor.fetchall()
-
-#
