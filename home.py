@@ -190,4 +190,4 @@ class HomePageWindow(BaseWindow):
                 filtered_jobs,
                 filtered_parts
             )
-            self.show_orders()
+        self.show_orders()
