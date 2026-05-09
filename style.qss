@@ -1,0 +1,151 @@
+QWidget {
+background-color: #0f172a;
+color: #e2e8f0;
+font-family: "Segoe UI", Arial;
+font-size: 14px;
+}
+
+#home-page-header {
+font-size: 22px;
+font-weight: bold;
+padding: 10px;
+color: #38bdf8;
+}
+#home-page-header-button {
+background-color: #22c55e;
+padding: 8px;
+border-radius: 6px;
+font-weight: bold;
+}
+#home-page-header-button:hover {
+background-color: #16a34a;
+}
+
+#drawer-wrapper {
+background-color: #020617;
+border-right: 1px solid #1e293b;
+}
+#toggle-drawer-button {
+background-color: #1e293b;
+color: white;
+border: none;
+font-size: 18px;
+}
+#toggle-drawer-button:hover {
+background-color: #334155;
+}
+#drawer-button {
+background-color: transparent;
+text-align: left;
+padding-left: 10px;
+border: none;
+font-weight: 500;
+}
+#drawer-button:hover {
+background-color: #1e293b;
+}
+
+QPushButton {
+background-color: #2563eb;
+border-radius: 6px;
+padding: 6px 10px;
+color: white;
+}
+QPushButton:hover {
+background-color: #1d4ed8;
+}
+QPushButton:pressed {
+background-color: #1e40af;
+}
+
+#jobs-button, #items-button {
+background-color: #7c3aed;
+}
+#jobs-button:hover, #items-button:hover {
+background-color: #6d28d9;
+}
+
+QLineEdit {
+background-color: #020617;
+border: 1px solid #1e293b;
+border-radius: 6px;
+padding: 6px;
+}
+QLineEdit:focus {
+border: 1px solid #38bdf8;
+}
+
+QCheckBox {
+spacing: 6px;
+}
+QCheckBox::indicator {
+width: 14px;
+height: 14px;
+}
+QCheckBox::indicator:checked {
+background-color: #22c55e;
+}
+
+QListWidget {
+background-color: #020617;
+border: 1px solid #1e293b;
+border-radius: 6px;
+}
+QListWidget::item {
+padding: 6px;
+}
+QListWidget::item:selected {
+background-color: #1e40af;
+}
+
+QTableWidget {
+background-color: #020617;
+border: 1px solid #1e293b;
+gridline-color: #1e293b;
+}
+QHeaderView::section {
+background-color: #1e293b;
+padding: 6px;
+border: none;
+font-weight: bold;
+}
+QTableWidget::item {
+padding: 5px;
+}
+QTableWidget::item:selected {
+background-color: #2563eb;
+}
+
+QScrollBar:vertical {
+background: #020617;
+width: 10px;
+}
+QScrollBar::handle:vertical {
+background: #334155;
+border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover {
+background: #475569;
+}
+
+QDialog {
+background-color: #0f172a;
+border-radius: 10px;
+}
+
+QMessageBox {
+background-color: #0f172a;
+}
+
+QSpinBox {
+background-color: #020617;
+border: 1px solid #1e293b;
+border-radius: 6px;
+padding: 3px;
+}
+
+QLabel {
+color: #cbd5f5;
+}
+
+

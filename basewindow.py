@@ -10,6 +10,8 @@ class BaseWindow(QWidget):
         self.setWindowIcon(QIcon("icon.ico"))
         self.setFixedSize(700, 400)
         self.settings = QSettings("Robocode", "RobocodeErpSystem")
+        with open("style.qss", "r") as file:
+            self.setStyleSheet(file.read())
 
     def show_modal(self, header: str, text: str, icon: int = 0):
         msg = QMessageBox()
